@@ -1,20 +1,42 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from "express";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
 import cors from "cors";
 
+const PORT = process.env.PORT || 3002;
+const URL = process.env.MONGO_URL;
+
 const app = express();
+const server = createServer(app);
+const io = new Server(server);
 
-app.get("/home", (req, res) => {
-    res.json("hello world")
-});
+app.use(
+    cors({
+        origin: "http://localhost:5173/",
+        methods: ["GET", "POST", "DELETE", "PUT"],
+        credentials: true,
+    })
+);
+app.use(express.json({limit: "40KB"}));
+app.use(express.urlencoded({limit: "40kb", extended: true}));
 
-const start = async () => {
+mongoose
+  .connect(URL)
+  .then(() => {
+    console.log("Connected to Database");
 
-    app.listen(3003, () => {
-        console.log("Listing on port 3003")
+    app.listen(PORT, () => {
+      console.log(`App is listening on PORT ${PORT}`);
     });
-}
+  })
+  .catch((err) => {
+    console.error("Database connection failed:", err);
+  });
 
-start();
+app.get("/", (req, res) => {
+  res.send("Backend is working");
+});
