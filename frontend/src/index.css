@@ -1,2 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bgP: #0f0f0f;
+  --color-bgS: #272727;
+  --color-EPur: #8425dc;
+  --color-EPin: #d022d0;
+}
+
+body {
+  font-family: sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
