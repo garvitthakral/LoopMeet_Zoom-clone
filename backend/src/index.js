@@ -3,16 +3,17 @@ dotenv.config();
 
 import express from "express";
 import { createServer } from "node:http";
-import { Server } from "socket.io";
 import mongoose from "mongoose";
 import cors from "cors";
+import userRoutes from "./routes/userRoutes.js"
+import { conectToSockt } from './controllers/socket.js';
 
 const PORT = process.env.PORT || 3002;
 const URL = process.env.MONGO_URL;
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = conectToSockt(server);
 
 app.use(
     cors({
@@ -23,6 +24,7 @@ app.use(
 );
 app.use(express.json({limit: "40KB"}));
 app.use(express.urlencoded({limit: "40kb", extended: true}));
+app.use("/api/v1/user", userRoutes);
 
 mongoose
   .connect(URL)
