@@ -16,7 +16,7 @@ const App = () => {
           <Route path='/' element={<Home />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Signin />}/>
-          <Route path='/genrate-room-key' element={<GenratingRoom />}/>
+          <Route path='/generate-room-key' element={<GenratingRoom />}/>
           <Route path='/waiting-room' element={<WaitingRoom />}/>
           <Route path='/video-call/:id' element={<VideoCall />}/>
         </Routes>

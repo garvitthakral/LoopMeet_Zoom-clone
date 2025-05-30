@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <div className="h-[100px] px-10 flex items-center justify-between w-full">
       <img
-        src="https://res.cloudinary.com/dtntjxdio/image/upload/v1748229778/lOGO_dzqjyr.png"
+        src="https://res.cloudinary.com/dtntjxdio/image/upload/v1748598088/LoopMeet_logo_final_rqieeg.png"
         alt=""
         className="h-[80px]"
       />
@@ -14,7 +14,7 @@ const Navbar = () => {
           <NavLink
             to={"/register"}
             className={({ isActive }) =>
-              `${isActive ? "text-EPin px-4" : "px-4"}`
+              `${isActive ? "text-EPin px-6" : "px-6"}`
             }
           >
             Register
@@ -22,23 +22,23 @@ const Navbar = () => {
           <NavLink
             to={"/"}
             className={({ isActive }) =>
-              `${isActive ? "text-EPin px-4" : "px-4"}`
+              `${isActive ? "text-EPin px-6" : "px-6"}`
             }
           >
             Home
           </NavLink>
           <NavLink
-            to={"/genrate-room-key"}
+            to={"/generate-room-key"}
             className={({ isActive }) =>
-              `${isActive ? "text-EPin px-4" : "px-4"}`
+              `${isActive ? "text-EPin px-6" : "px-6"}`
             }
           >
             Start meating
           </NavLink>
           <NavLink
-            to={"/genrate-room-key"}
+            to={"/generate-room-key"}
             className={({ isActive }) =>
-              `${isActive ? "text-EPin px-4" : "px-4"}`
+              `${isActive ? "text-EPin px-6" : "px-6"}`
             }
           >
             Join as guest
