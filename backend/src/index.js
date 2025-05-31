@@ -16,11 +16,11 @@ const server = createServer(app);
 const io = conectToSockt(server);
 
 app.use(
-    cors({
-        origin: "http://localhost:5173/",
-        methods: ["GET", "POST", "DELETE", "PUT"],
-        credentials: true,
-    })
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
 );
 app.use(express.json({limit: "40KB"}));
 app.use(express.urlencoded({limit: "40kb", extended: true}));

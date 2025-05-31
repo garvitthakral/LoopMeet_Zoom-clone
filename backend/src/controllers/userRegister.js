@@ -24,7 +24,7 @@ const login = async (req, res) => {
 
       user.token = token;
       await user.save();
-      return res.status(httpStatus.OK).json({ message: "token saved" });
+      return res.status(httpStatus.OK).json({ success: true, message: "token saved" });
     }
   } catch (err) {
     res.status(500).json({ message: err });
@@ -61,7 +61,7 @@ const register = async (req, res) => {
     if (newUser) {
       return res
         .status(httpStatus.CREATED)
-        .json({ message: "user created succesfully" });
+        .json({ success: true, message: "user created successfully" });
     }
   } catch (error) {
     res.status(httpStatus.NOT_ACCEPTABLE).json({ message: error });
