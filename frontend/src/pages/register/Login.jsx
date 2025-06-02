@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Footer from "../components/Footer";
 import { NavLink, useNavigate } from "react-router-dom";
 import api from "../../API/axios";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
   const [inputValues, setInputValues] = useState({
@@ -9,6 +10,7 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const { Login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,10 +25,12 @@ const Login = () => {
       const { success, message } = data;
 
       if (success) {
+        Login(data.user);
         setInputValues({
           username: "",
           password: "",
         });
+        console.log(message);
         navigate("/generate-room-key");
       }
     } catch (e) {
