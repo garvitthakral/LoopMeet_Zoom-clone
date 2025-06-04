@@ -1,18 +1,17 @@
-import { connect } from "node:http2";
 import { Server } from "socket.io";
 
 let connections = {};
 let messages = {};
 let timeOnline = {};
 
-export const conectToSockt = (server) => {
+export const connectToSocket = (server) => {
   const io = new Server(server, {
     cors: {
-        origin: "*",
-        methods : ["GET", "POST"],
-        allowedHeaders: ["*"],
-        credentials: true
-    }
+      origin: "*",
+      methods: ["GET", "POST"],
+      allowedHeaders: ["*"],
+      credentials: true,
+    },
   });
 
   io.on("connection", (socket) => {
@@ -48,7 +47,7 @@ export const conectToSockt = (server) => {
     socket.on("chat-message", (data, sender) => {
       const match = Object.entries(connections).find(
         // _ is used to ignore the room name
-        ([_, members]) => members.includes(socket.id) 
+        ([_, members]) => members.includes(socket.id)
       );
 
       if (match) {
@@ -71,7 +70,7 @@ export const conectToSockt = (server) => {
     });
 
     socket.on("disconnect", () => {
-      const diffTime = Math.abs(timeOnline(socket.id)) - new Date();
+      const diffTime = new Date() - timeOnline[socket.id];
       let roomKey = null;
 
       // Find the room this socket was part of
