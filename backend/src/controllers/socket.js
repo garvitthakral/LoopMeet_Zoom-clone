@@ -15,19 +15,25 @@ export const connectToSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
-    socket.on("join-call", (path) => {
+    console.log("something Connected");
+    socket.on("join-call", (path, callback) => {
       if (connections[path] === undefined) {
         connections[path] = [];
-      }
+      }  
+
       connections[path].push(socket.id);
       timeOnline[socket.id] = new Date();
 
+      const usersInRoom = connections[path].length;
+
+      // Notify all other users in the room
       connections[path].forEach((element) => {
         if (element !== socket.id) {
           io.to(element).emit("user-joined", socket.id, connections[path]);
         }
       });
 
+      // Send chat history to the new user (unchanged)
       if (messages[path] !== undefined) {
         messages[path].forEach((message) => {
           io.to(socket.id).emit(
@@ -37,6 +43,11 @@ export const connectToSocket = (server) => {
             message["socket-id-sender"]
           );
         });
+      }
+
+      // ✅ Send back number of users to the frontend caller
+      if (callback) {
+        callback(usersInRoom);
       }
     });
 

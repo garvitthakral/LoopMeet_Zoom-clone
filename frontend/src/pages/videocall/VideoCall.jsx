@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import io from "socket.io-client";
 
@@ -34,8 +33,12 @@ const VideoCall = () => {
         video: true,
       });
       if (videoPermission) {
-        setVideoAvail(true);
-      } else setVideoAvail(false);
+        setVideoAvailable(true);
+        console.log("Video permission granted");
+      } else {
+        setVideoAvailable(false);
+        console.log("Video permission denied");
+      }
 
       //audio
       const audioPermission = await navigator.mediaDevices.getUserMedia({

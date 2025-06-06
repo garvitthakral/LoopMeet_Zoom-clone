@@ -7,6 +7,8 @@ import Signin from './pages/register/Signin'
 import GenratingRoom from './pages/roomkey/GenratingRoom'
 import WaitingRoom from './pages/videocall/WaitingRoom'
 import VideoMeet from './pages/videocall/VideoMeet'
+import VideoZoom from './pages/videocall/VideoZoom'
+import VideoCallPage from './pages/videocall/VideoCallPage'
 
 const App = () => {
   return (
@@ -18,7 +20,7 @@ const App = () => {
           <Route path='/register' element={<Signin />}/>
           <Route path='/generate-room-key' element={<WaitingRoom/>}/>
           {/* <Route path='/waiting-room' element={<WaitingRoom />}/> */}
-          <Route path='/video-call/:id' element={<VideoMeet/>}/>
+          <Route path='/video-call/:id' element={<VideoCallPage/>}/>
         </Routes>
     </div>
   )
