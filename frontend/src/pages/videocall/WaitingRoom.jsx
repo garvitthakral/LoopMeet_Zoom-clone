@@ -10,36 +10,41 @@ const WaitingRoom = () => {
 
   const handleJoinCall = () => {
     if (!username.trim() || !roomId.trim()) return alert("Fill all fields");
+
     const finalRoomId = roomId || Math.random().toString(36).substring(2, 10);
+
     socket.emit("join-call", finalRoomId);
-    navigate(`/video-call/${finalRoomId}`, { state: { username } });
+    navigate(`/video-call/${finalRoomId}`, {
+      state: { username, finalRoomId },
+    });
   };
 
   const handleRoomKey = () => {
     setRoomId(Math.random().toString(36).substring(2, 10));
   };
 
-  useEffect(() => {
-    const getUserConsentAndStream = async () => {
-      const consent = window.confirm(
-        "Do you allow access to your camera and microphone for video calling?"
-      );
-      if (!consent) return;
+  const getUserConsentAndStream = async () => {
+    const consent = window.confirm(
+      "Do you allow access to your camera and microphone for video calling?"
+    );
+    if (!consent) return;
 
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: true,
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.log("failed to get Media in waitingRoom : ", err);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
       }
-    };
+    } catch (err) {
+      console.log("failed to get Media in waitingRoom : ", err);
+    }
+  };
 
-    console.log(roomId);
+  console.log(roomId);
+
+  useEffect(() => {
     getUserConsentAndStream();
   }, []);
 
