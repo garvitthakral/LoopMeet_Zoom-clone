@@ -7,7 +7,7 @@ let timeOnline = {};
 export const connectToSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: "*",
+      origin: "http://localhost:5173",
       methods: ["GET", "POST"],
       allowedHeaders: ["*"],
       credentials: true,
@@ -15,7 +15,7 @@ export const connectToSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
-    console.log("something Connected");
+    console.log(`connection established`);
     socket.on("join-call", (path, callback) => {
       if (connections[path] === undefined) {
         connections[path] = [];
@@ -29,6 +29,7 @@ export const connectToSocket = (server) => {
       // Notify all other users in the room
       connections[path].forEach((element) => {
         if (element !== socket.id) {
+          console.log(`userJoin ${socket.id}`)
           io.to(element).emit("user-joined", socket.id, connections[path]);
         }
       });

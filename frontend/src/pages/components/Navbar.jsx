@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="h-[100px] px-10 flex items-center justify-between w-full">
+    <div className="h-[100px] px-10 flex items-center justify-between w-full z-60">
       <img
         src="https://res.cloudinary.com/dtntjxdio/image/upload/v1748598088/LoopMeet_logo_final_rqieeg.png"
         alt=""

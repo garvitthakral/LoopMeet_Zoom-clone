@@ -9,13 +9,14 @@ const WaitingRoom = () => {
   const videoRef = useRef(null);
 
   const handleJoinCall = () => {
-    if (!username.trim() || !roomId.trim()) return alert("Fill all fields");
-
     const finalRoomId = roomId || Math.random().toString(36).substring(2, 10);
+
+    if (!username.trim() || !finalRoomId.trim())
+      return alert("Fill all fields");
 
     socket.emit("join-call", finalRoomId);
     navigate(`/video-call/${finalRoomId}`, {
-      state: { username, finalRoomId },
+      state: { username },
     });
   };
 
@@ -24,11 +25,6 @@ const WaitingRoom = () => {
   };
 
   const getUserConsentAndStream = async () => {
-    const consent = window.confirm(
-      "Do you allow access to your camera and microphone for video calling?"
-    );
-    if (!consent) return;
-
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
@@ -39,10 +35,11 @@ const WaitingRoom = () => {
       }
     } catch (err) {
       console.log("failed to get Media in waitingRoom : ", err);
+      alert(
+        "Camera and microphone access is required for video calling. Please allow access and try again."
+      );
     }
   };
-
-  console.log(roomId);
 
   useEffect(() => {
     getUserConsentAndStream();
