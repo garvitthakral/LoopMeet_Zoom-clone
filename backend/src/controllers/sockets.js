@@ -3,7 +3,7 @@ import { Server } from "socket.io";
 const connectToSockets = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: ["http://localhost:5173", "https://loopmeet-zoom-clone.onrender.com"],
       methods: ["GET", "POST"],
       allowedHeaders: ["*"],
       credentials: true,
