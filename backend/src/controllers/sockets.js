@@ -21,7 +21,7 @@ const connectToSockets = (server) => {
     });
 
     socket.on("send-message-event", (messageData) => {
-      socket.to(messageData.roomId).emit("receive-message-event", messageData);
+      io.to(messageData.roomId).emit("receive-message-event", messageData);
     });
 
     socket.on("offer", ({ roomId, offer, to }) => {

@@ -93,6 +93,7 @@ const VideoCalling = () => {
         { urls: "stun:stun.l.google.com:19302" },
         { urls: "stun:stun1.l.google.com:19302" },
       ],
+      iceCandidatePoolSize: 10,
     });
 
     if (localStream) {
@@ -145,6 +146,7 @@ const VideoCalling = () => {
   const sendMessage = () => {
     if (currentMessage.trim()) {
       const messageData = {
+        id: Date.now() + Math.random(),
         roomId,
         message: currentMessage,
         username,
@@ -152,7 +154,7 @@ const VideoCalling = () => {
       };
 
       socketApi.emit("send-message-event", messageData);
-      setMessages((prev) => [...prev, messageData]);
+      // setMessages((prev) => [...prev, messageData]);
       setCurrentMessage("");
     }
   };
