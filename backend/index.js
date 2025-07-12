@@ -5,9 +5,9 @@ import express from "express";
 import { createServer } from "http";
 import mongoose from "mongoose";
 import cors from "cors";
-import userRoutes from "./routes/userRoutes.js"
-import { connectToSocket } from './controllers/socket.js';
-import connectToSockets from './controllers/sockets.js';
+import userRoutes from "./src/routes/userRoutes.js"
+import { connectToSocket } from './src/controllers/socket.js';
+import connectToSockets from './src/controllers/sockets.js';
 
 const PORT = process.env.PORT || 3002;
 const URL = process.env.MONGO_URL;
