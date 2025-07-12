@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: ["http://localhost:3002/", "https://loopmeet-zoom-clone-backend.onrender.com/"],
+  baseURL: "https://loopmeet-zoom-clone-backend.onrender.com/",
   withCredentials: true,
 });
 
